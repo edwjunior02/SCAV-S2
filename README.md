@@ -33,8 +33,8 @@ Debido a que ```ffmpeg``` no puede sobreescribir el mismo archivo, hemos realiza
 ```
 El código que realiza estas dos funcionalidades es el siguiente:
 ```ruby
-    1. os.system("ffmpeg -i Resistencia_MP4_Container.mp4 -c:a mp3 -vn Resistencia_audio.mp3")
-    2. os.system("ffmpeg -i Resistencia_MP4_Container.mp4 -i Resistencia_audio.mp3 -map 0:v -c:v copy -map 1:a -c:a copy -b:a 320k -ac 2 -map 0:a -c:a copy Resistencia_MP4_Container_MP3.mp4")
+    1. os.system("ffmpeg -i Resistencia_MP4_Container.mp4 -c:a mp3 -b:a 320k -ac 2 -sn -vn Resistencia_audio.mp3")
+    2. os.system("ffmpeg -i Resistencia_MP4_Container.mp4 -i Resistencia_audio.mp3 -map 0:v -c:v copy -map 1:a -c:a copy -map 0:a -c:a copy Resistencia_MP4_Container_MP3.mp4")
 ```
 
 Como podemos observar, en el primer paso, vemos como extraemos el canal de audio ```-c:a``` y lo extraemos a ```mp3```.
