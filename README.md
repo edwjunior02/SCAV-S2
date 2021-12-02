@@ -46,3 +46,4 @@ Si ejecutamos el siguiente comando ```ffmpeg -i media/Resistencia_MP4_Container_
 
 ![Captura de pantalla 2021-12-02 a las 1 31 46](https://user-images.githubusercontent.com/91899380/144336614-ecffcf14-6c28-4ea7-bd8d-459b2db84181.png)
 
+### EJERCICIO 3: 
