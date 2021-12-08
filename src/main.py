@@ -30,7 +30,7 @@ def s2_main():
                 Ex2.Ex2_main()
             elif ex == '3':
                 import Ex3_DetectBroadcasting as Ex3
-                Ex3.main()
+                Ex3.Ex3_main()
             elif ex == '4':
                 import Ex4_Subtitles as Ex4
                 Ex4.Ex4_main()
