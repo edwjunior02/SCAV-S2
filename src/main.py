@@ -32,8 +32,8 @@ def s2_main():
                 import Ex3_DetectBroadcasting as Ex3
                 Ex3.main()
             elif ex == '4':
-                import Ex4
-                Ex4.main()
+                import Ex4_Subtitles as Ex4
+                Ex4.Ex4_main()
             else:
                 time.sleep(1)
                 print("\nNúmero de ejercicio incorrecto \U00002620. Introduce una de las 5 opciones disponibles:')\n")
