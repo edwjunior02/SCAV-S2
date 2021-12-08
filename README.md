@@ -55,6 +55,7 @@ Esta selección permite escoger 3 tipos de codecs de audio:
 ```
 Cada uno de estos codecs, se obtendrán extrayendo préviamente el audio del archivo de entrada, convirtiendo este audio al formato deseado y, finalmente, guardándolo en un NUEVO contenedor ```.mp4```.
 Este es el resultado de aplicar consecutivamente las 3 opciones disponibles en este menú:
-gi
+
+![CONTAINER FINAL](https://user-images.githubusercontent.com/91899380/145125405-7b335d34-f9c2-430c-abdc-a51a0c2664d3.png)
 
 ### EJERCICIO 3: 
