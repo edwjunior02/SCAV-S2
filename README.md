@@ -1,8 +1,15 @@
 # SCAV-S2
 #### Eduard Puig - 194161
 
-### EJERCICIO 1: ...
-
+### EJERCICIO 1: 
+En este primer ejercicio, se nos pide exportar un video en el que se puedan visualizar los vectores de movimiento y los macroblocks.
+Para ello, la herramienta ffmpeg nos brinda gran ayuda ya que hay ciertas funciones que nos permiten exportar el campo vectorial de movimento e integrarlo en el video original.
+El bloque de código que genera este formato es el siguiente:
+```ruby
+os.system("ffmpeg -flags2 +export_mvs -i Resistencia_BM19_cropped_2.mp4 -vf codecview=mv=pf+bf+bb Resistencia_mvs.mp4")
+```
+En este bloque de código, podemos ver como mediante ```+export_mvs``` y ```codecview=mv=pf+bf+bb```, conseguimos extraer el mapa vectorial de movimiento a partir de las predicciones de los vectores de movimiento de frames B y P.
+También tenemos que destacar que cada vector tiene su origen en el centro de un macroblock. Por lo tanto, se genera una distribución de macroblocs uniforme (tienen todos el mismo tamaño).
 
 
 ### EJERCICIO 2: MP4 CONTAINER
@@ -59,3 +66,50 @@ Este es el resultado de aplicar consecutivamente las 3 opciones disponibles en e
 ![CONTAINER FINAL](https://user-images.githubusercontent.com/91899380/145125405-7b335d34-f9c2-430c-abdc-a51a0c2664d3.png)
 
 ### EJERCICIO 3: 
+Para este ejercicio, nuestro objetivo ha sido encontrar que formatos de broadcasting son compatibles para retransmitir nuestro vídeo.
+Para ello, hemos creado una estructura en formato JSON (sin exportar) que almacena todos los estándares de broadcasting que vamos a tener en cuenta:
+``` ruby
+bs_list = {}
+bs_list['broadcasting_standards'] = []
+bs_list['broadcasting_standards'].append({
+    'name': 'DVB-T',
+    'video_codecs': ['mpeg2', 'h264'],
+    'audio_codecs': ['aac', 'ac3', 'mp3']})
+bs_list['broadcasting_standards'].append({
+    'name': 'ATSC',
+    'video_codecs': ['mpeg2', 'h264'],
+    'audio_codecs': ['ac3']})
+bs_list['broadcasting_standards'].append({
+    'name': 'DTMB',
+    'video_codecs': ['avs', 'avs+', 'mpeg2', 'h264'],
+    'audio_codecs': ['dra', 'aac', 'ac3', 'mp2', 'mp3']})
+bs_list['broadcasting_standards'].append({
+    'name': 'ISDB-T',
+    'video_codecs': ['mpeg2', 'h264'],
+    'audio_codecs': ['aac']})
+bs_list['broadcasting_standards'].append({
+    'name': 'ISDB-Tb',
+    'video_codecs': ['h264'],
+    'audio_codecs': ['aac']})
+```
+Seguidamente, mediante el siguiente comando, hemos creado un archivo ```.json``` que nos permite almacenar e indexar ciertos campos que vamos a utilizar para poder compararlos posteriormente con los estándares definidos como hemos comentado antes.
+```ruby
+ffprobe -hide_banner -v error -show_entries stream=index,codec_type,codec_name -of default=noprint_wrappers=1 -print_format json "+str(filename)+" > format.json
+```
+donde ```filename``` es el nombre del archivo multimedia que queremos analizar y que se tendrá que especificar al comienzo del script:
+```ruby 
+filename = 'Resistencia_BM19_cropped.mp4
+```
+en nuestro caso y en el campo ```stream=index,codec_type,codec_name``` se especifican los campos que deseamos extraer del archivo ```.mp4```.
+El bloque ```-of default=default=noprint_wrappers=1```, lo que básicamente hace es evitar imprimir cabezeras de datos innecesarias para nuestro anáisis.
+Por último se exporta a ```.json``` mediante el bloque ```-print_format json "+str(filename)+" > format.json```.
+El resultado de nuestro script será el siguiente:
+
+### EJERCICIO 4: 
+Este último ejercicio consiste simplemente en añadir subtítulos a nuestro vídeo. Para ello, primero hemos tenido que descargar los subtítulos del video desde internet en formato ```.srt```.
+Una vez descargados y guardados en la carpeta ````media/````, podemos cargarlos en nuestro script y ejecutar el siguiente comando:
+```ruby
+os.system("ffmpeg -i "+str(filename)+" -vf subtitles=subtitles_resistencia.srt Resistencia_BM19_Spanish_subtitulado.mp4")
+```
+Que básicamente junta el video original y los subtítulos en formato ````srt````, ya que son más fáciles de interpretar.
+El resultado es el siguiente:

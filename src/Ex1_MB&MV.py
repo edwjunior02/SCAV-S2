@@ -4,11 +4,6 @@ import shutil
 
 # Nuestra línea de comando de FFMPEG solo lee imágenes que estén en el mismo directorio que el script en el que se lance la petición.
 #Para ello, haremos una copia de media/Resistencia_BM19_cropped_2.mp4 y la pasaremos al directorio src/.
-cwd = os.getcwd()
-cwd_media = os.system("cd ..")
-print(cwd_media)
-time.sleep(20)
-
 pathCarpeta = ("/Users/edwjunior/Documents/UNIVERSIDAD/4o CURSO/1r TRIMESTRE/SISTEMES DE CODIFICACIÓ D'ÀUDIO I VIDEO"
                "/SEMINARS/SEMINAR 2/media/")
 pathCarpeta2 = ("/Users/edwjunior/Documents/UNIVERSIDAD/4o CURSO/1r TRIMESTRE/SISTEMES DE CODIFICACIÓ D'ÀUDIO I VIDEO"
@@ -41,10 +36,10 @@ time.sleep(2)
 
 # CORE DEL EJERCICIO:---------------------------------------------------------------------------------------------------
 
-os.system("ffmpeg -flags2 +export_mvs -i Resistencia_BM19_cropped_2.mp4 -vf codecview=mvt=fp+bp Resistencia_mvs.mp4")
+os.system("ffmpeg -flags2 +export_mvs -i Resistencia_BM19_cropped_2.mp4 -vf codecview=mv=pf+bf+bb Resistencia_mvs.mp4")
 print("Reproduciendo video...")
 time.sleep(2)
-os.system("ffplay -flags2 +export_mvs -i /SEMINAR2/media/Resistencia_BM19_cropped_2.mp4 -vf codecview=mv=pf+bf+bb")
+os.system("ffplay -flags2 +export_mvs -i Resistencia_BM19_cropped_2.mp4 -vf codecview=mv=pf+bf+bb")
 
 # ----------------------------------------------------------------------------------------------------------------------
 
