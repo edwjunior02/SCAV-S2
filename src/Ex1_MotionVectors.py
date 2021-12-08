@@ -1,30 +1,29 @@
-import os
+import os.path
 import time
 import shutil
 
-def Ex4_main():
+def Ex1_main():
     # Nuestra línea de comando de FFMPEG solo lee imágenes que estén en el mismo directorio que el script en el que se lance la petición.
     # Para ello, haremos una copia de media/Resistencia_BM19_cropped_2.mp4 y la pasaremos al directorio src/.
-    # Aquí debe introducir el directorio
-    srcFolder = ("/Users/edwjunior/Documents/UNIVERSIDAD/4o CURSO/1r TRIMESTRE/SISTEMES DE CODIFICACIÓ D'ÀUDIO I VIDEO"
-                 "/SEMINARS/SEMINAR 2/src")
-    mediaFolder = (
+    pathCarpeta = (
         "/Users/edwjunior/Documents/UNIVERSIDAD/4o CURSO/1r TRIMESTRE/SISTEMES DE CODIFICACIÓ D'ÀUDIO I VIDEO"
-        "/SEMINARS/SEMINAR 2/media")
+        "/SEMINARS/SEMINAR 2/media/")
+    pathCarpeta2 = (
+        "/Users/edwjunior/Documents/UNIVERSIDAD/4o CURSO/1r TRIMESTRE/SISTEMES DE CODIFICACIÓ D'ÀUDIO I VIDEO"
+        "/SEMINARS/SEMINAR 2/src")
 
-    if not os.path.isdir(mediaFolder):
+    if not os.path.isdir(pathCarpeta):
         print('la primera carpeta no existe')
-    elif not os.path.isdir(srcFolder):
+    elif not os.path.isdir(pathCarpeta2):
         print('la segunda carpeta no existe')
 
-    contenidos = os.listdir(mediaFolder)
-    filename = 'Resistencia_BM19.mp4'  # Aqui se debe introducir el nombre del video que se desee. Este video debe estar en la carpeta /media/ y el propio programa lo cargará en src/.
+    contenidos = os.listdir(pathCarpeta)
     for elemento in contenidos:
         try:
-            if elemento == filename or elemento.endswith(".srt"):
-                print(f"Copiando {elemento} --> {srcFolder} ... ", end="")
-                src = os.path.join(mediaFolder, elemento)  # origen
-                dst = os.path.join(srcFolder, elemento)  # destino
+            if elemento == 'Resistencia_BM19_cropped_2.mp4':
+                print(f"Copiando {elemento} --> {pathCarpeta2} ... ", end="")
+                src = os.path.join(pathCarpeta, elemento)  # origen
+                dst = os.path.join(pathCarpeta2, elemento)  # destino
                 shutil.copy(src, dst)
                 time.sleep(2)
                 print("Correcto")
@@ -39,17 +38,21 @@ def Ex4_main():
 
     # CORE DEL EJERCICIO:---------------------------------------------------------------------------------------------------
 
-    os.system("ffmpeg -i " + str(
-        filename) + " -vf subtitles=subtitles_resistencia.srt Resistencia_BM19_Spanish_subtitulado.mp4")
+    os.system(
+        "ffmpeg -flags2 +export_mvs -i Resistencia_BM19_cropped_2.mp4 -vf codecview=mv=pf+bf+bb Resistencia_mvs.mp4")
+    print("Reproduciendo video...")
+    time.sleep(2)
+    os.system("ffplay -flags2 +export_mvs -i Resistencia_BM19_cropped_2.mp4 -vf codecview=mv=pf+bf+bb")
 
     # ----------------------------------------------------------------------------------------------------------------------
-    contenidos = os.listdir(srcFolder)
+
+    contenidos = os.listdir(pathCarpeta2)
     for elemento in contenidos:
         try:
-            if elemento.endswith(".mp4") or elemento.endswith(".srt"):
-                print(f"Moviendo {elemento} --> {mediaFolder} ... ", end="")
-                src = os.path.join(srcFolder, elemento)  # origen
-                dst = os.path.join(mediaFolder, elemento)  # destino
+            if elemento.endswith(".mp4"):
+                print(f"Moviendo {elemento} --> {pathCarpeta} ... ", end="")
+                src = os.path.join(pathCarpeta2, elemento)  # origen
+                dst = os.path.join(pathCarpeta, elemento)  # destino
                 shutil.move(src, dst)  # Ahora utilizamos move en vez de copy, ya que lo queremos mover de aquí.
                 time.sleep(2)
                 print("Correcto")
@@ -62,6 +65,7 @@ def Ex4_main():
     time.sleep(2)
     print(f"Se han movido los archivos correctamente.")
 
-Ex4_main()
+Ex1_main()
 import main
 main.s2_main()
+
