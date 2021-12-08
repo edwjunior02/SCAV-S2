@@ -10,7 +10,9 @@ os.system("ffmpeg -flags2 +export_mvs -i Resistencia_BM19_cropped_2.mp4 -vf code
 ```
 En este bloque de código, podemos ver como mediante ```+export_mvs``` y ```codecview=mv=pf+bf+bb```, conseguimos extraer el mapa vectorial de movimiento a partir de las predicciones de los vectores de movimiento de frames B y P.
 También tenemos que destacar que cada vector tiene su origen en el centro de un macroblock. Por lo tanto, se genera una distribución de macroblocs uniforme (tienen todos el mismo tamaño).
+En la siguiente imagen se muestra el resultado obtenido al ejecutar este script:
 
+![motionvectors](https://user-images.githubusercontent.com/91899380/145307320-116b0817-ad40-41c9-be25-2e685bb674dd.png)
 
 ### EJERCICIO 2: MP4 CONTAINER
 Para empezar, tenemos que crear un contenedor ```MP4``` que nos almacene diferentes tracks de audio y video.
@@ -113,3 +115,5 @@ os.system("ffmpeg -i "+str(filename)+" -vf subtitles=subtitles_resistencia.srt R
 ```
 Que básicamente junta el video original y los subtítulos en formato ````srt````, ya que son más fáciles de interpretar.
 El resultado es el siguiente:
+
+![subtitles](https://user-images.githubusercontent.com/91899380/145307149-bbcbdada-e2c0-4100-94f6-7e83893132f0.png)
