@@ -23,7 +23,7 @@ Y queremos convertirlo en un contenedor con estas características:
 ![NewContainerMP4](https://user-images.githubusercontent.com/91899380/144336594-2697ce21-8114-4fb8-828f-b205d6d0b913.png)
 
 Precisamente con ```ffmpeg``` podemos conseguir copiar cierta información de un contenedor a otro y añadir lo que nos falta.
-Primero vamos quedarnos con solo el primer minuto del video ```Resistencia_BM19_cropped.mp4``` por razones de espacio, y vamos a copiar toda la información de este video a un nuevo container mp4 
+Primero vamos a quedarnos con solo el primer minuto del video ```Resistencia_BM19_cropped.mp4``` por razones de espacio, y vamos a copiar toda la información de este video a un nuevo container mp4 
 a que llamaremos ```Resistencia_MP4_Container.mp4```.
 
 Debido a que ```ffmpeg``` no puede sobreescribir el mismo archivo, hemos realizado el ejercicio en varios pasos:
@@ -45,5 +45,16 @@ Por último, copiamos el codec de audio del archivo original (```input #0```), y
 Si ejecutamos el siguiente comando ```ffmpeg -i media/Resistencia_MP4_Container_MP3.mp4``` obtenemos el resultado:
 
 ![Captura de pantalla 2021-12-02 a las 1 31 46](https://user-images.githubusercontent.com/91899380/144336614-ecffcf14-6c28-4ea7-bd8d-459b2db84181.png)
+
+Para darle un poco mÁs de dinamismo al ejercicio, hemos añadido una pequeña selección de codecs de audio compatibles con el contenedor de video ```.mp4```.
+Esta selección permite escoger 3 tipos de codecs de audio: 
+```
+1. MP3
+2. AAC
+3. AC-3
+```
+Cada uno de estos codecs, se obtendrán extrayendo préviamente el audio del archivo de entrada, convirtiendo este audio al formato deseado y, finalmente, guardándolo en un NUEVO contenedor ```.mp4```.
+Este es el resultado de aplicar consecutivamente las 3 opciones disponibles en este menú:
+gi
 
 ### EJERCICIO 3: 

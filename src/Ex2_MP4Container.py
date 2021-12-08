@@ -4,8 +4,9 @@ import shutil
 
 # Nuestra línea de comando de FFMPEG solo lee imágenes que estén en el mismo directorio que el script en el que se lance la petición.
 #Para ello, haremos una copia de media/Resistencia_BM19_cropped_2.mp4 y la pasaremos al directorio src/.
+#Aquí debe introducir el directorio
 pathCarpeta = ("/Users/edwjunior/Documents/UNIVERSIDAD/4o CURSO/1r TRIMESTRE/SISTEMES DE CODIFICACIÓ D'ÀUDIO I VIDEO"
-               "/LABS/LAB2-VideoPart")
+                "/SEMINARS/SEMINAR 2/media")
 pathCarpeta2 = ("/Users/edwjunior/Documents/UNIVERSIDAD/4o CURSO/1r TRIMESTRE/SISTEMES DE CODIFICACIÓ D'ÀUDIO I VIDEO"
                 "/SEMINARS/SEMINAR 2/src")
 pathCarpetaDest = ("/Users/edwjunior/Documents/UNIVERSIDAD/4o CURSO/1r TRIMESTRE/SISTEMES DE CODIFICACIÓ D'ÀUDIO I VIDEO"
@@ -51,10 +52,9 @@ while aux == True:
     print(f"....................................")
     print(f". 1. MP3:                          .")
     print(f". 2. AAC:                          .")
-    print(f". 3. WAV:                          .")
-    print(f". 4. FLAC:                         .")
+    print(f". 3. AC-3:                         .")
     print(f".                                  .")
-    print(f". 5. No quiero asignar nada:       .")
+    print(f". 4. No quiero asignar nada:       .")
     print(f"....................................")
     res = input()
     if res == '1':
@@ -67,7 +67,7 @@ while aux == True:
             time.sleep(0.2)
         # os.system("ffmpeg -i Resistencia_MP4_Container.mp4 -c:v copy -map 0:0 -c:a copy -map 0:1 -c:a mp3 -b:a 320k -ac 2 -sn -map 0:2 Resistencia_MP4_Container.mp4")
         os.system("ffmpeg -i Resistencia_MP4_Container.mp4 -c:a mp3 -b:a 320k -ac 2 -sn -vn Resistencia_audio.mp3")
-        os.system("ffmpeg -i Resistencia_MP4_Container.mp4 -i Resistencia_audio.mp3 -map 0:v -c:v copy -map 1:a -c:a copy -map 0:a -c:a copy Resistencia_MP4_Container_MP3.mp4")
+        os.system("ffmpeg -i Resistencia_MP4_Container.mp4 -i Resistencia_audio.mp3 -map 0:v -c:v copy -map 0:a -c:a copy -map 1:a -c:a copy  Resistencia_MP4_Container_MP3.mp4")
         print(f"¡Convertido correctamente!")
         time.sleep(1)
         count += 1
@@ -82,37 +82,27 @@ while aux == True:
             time.sleep(0.2)
         # os.system("ffmpeg -i Resistencia_BM19_cropped.mp4 -c:a libfdk_aac -profile:a aac_he_v2 -b:a 20k -ar 44100 -ac 2 Resistencia_BM19_cropped.m4a")
         os.system("ffmpeg -i Resistencia_BM19_cropped.mp4 -vn -acodec aac Resistencia_BM19_cropped.aac")
+        os.system("ffmpeg -i Resistencia_MP4_Container_MP3.mp4 -i Resistencia_BM19_cropped.aac -map 0:v -c:v copy -map 0:a -c:a copy -map 1:a -c:a copy  Resistencia_MP4_Container_AAC.mp4")
         print(f"¡Convertido correctamente!")
         time.sleep(1)
         count += 1
         continue
     elif res == '3':
-        print(f"Has decidido codificar el audio en formato WAV.")
-        print(f"Convirtiendo a WAV:")
+        print(f"Has decidido codificar el audio en formato AC-3.")
+        print(f"Convirtiendo a AC-3:")
         i = 0
         while i < 10:
             print(f"\U0001F37A", end="")
             i = i + 1
             time.sleep(0.2)
-        os.system("ffmpeg -i Resistencia_BM19_cropped.mp4 -ac 2 Resistencia_BM19_cropped.wav")
+        os.system("ffmpeg -i Resistencia_BM19_cropped.mp4 -vn -c:a ac3 -b:a 384k -ar 48000 -ac 6 Resistencia_BM19_cropped.ac3")
+        os.system("ffmpeg -i Resistencia_MP4_Container_MP3.mp4 -i Resistencia_BM19_cropped.ac3 -map 0:v -c:v copy -map 0:a -c:a copy -map 1:a -c:a copy  Resistencia_MP4_Container_AC3.mp4")
         print(f"¡Convertido correctamente!")
         time.sleep(1)
         count += 1
         continue
+
     elif res == '4':
-        print(f"Has decidido codificar el audio en formato FLAC.")
-        print(f"Convirtiendo a FLAC:")
-        i = 0
-        while i < 10:
-            print(f"\U0001F37A", end="")
-            i = i + 1
-            time.sleep(0.2)
-        os.system("ffmpeg -i Resistencia_BM19_cropped.mp4 -c:a flac -compression_level 12 Resistencia_BM19_cropped.flac")
-        print(f"¡Convertido correctamente!")
-        time.sleep(1)
-        count += 1
-        continue
-    elif res == '5':
         option = input(f"Estas seguro que desea salir del programa? \U0001F62D [y/n]")
         if option == 'y':
             aux = False
